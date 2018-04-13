@@ -1,4 +1,4 @@
-var babel = require("babel-core")
+var babel = require("@babel/core")
 var fs = require("fs")
 var path = require("path")
 var fixturesDir = path.join(__dirname, "fixtures")
@@ -29,10 +29,10 @@ function readFile(filename) {
 
 function transformFile(filename) {
   return babel.transformFileSync(filename, {
-    presets: ['react', 'stage-1'],
+    presets: ['@babel/react', '@babel/preset-stage-0'],
     plugins: [
       [pluginPath, {'knownComponents': ['Component5a', 'Component5b', 'Component5c']}],
-      'transform-decorators-legacy',
+      '@babel/plugin-proposal-decorators',
     ]
   }).code
 }
