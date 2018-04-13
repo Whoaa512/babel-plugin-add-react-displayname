@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-displayname",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Automatically add displayName to all your components",
   "main": "index.js",
   "dependencies": {},
