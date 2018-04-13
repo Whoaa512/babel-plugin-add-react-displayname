@@ -1,4 +1,4 @@
-module.exports = transform;
+module.exports = transform
 var pathMod = require('path')
 
 function transform (babel) {
@@ -22,18 +22,18 @@ function transform (babel) {
               var extension = pathMod.extname(state.file.opts.filename)
               var name = pathMod.basename(state.file.opts.filename, extension)
 
-              var id = path.scope.generateUidIdentifier("uid");
+              var id = path.scope.generateUidIdentifier('uid')
               path.node.id = id
               displayName = name
             }
             setDisplayNameAfter(path, path.node.id, babel.types, displayName)
-          }else if(path.parentPath.node.type === 'Program' || path.parentPath.node.type == 'ExportNamedDeclaration') {
+          } else if (path.parentPath.node.type === 'Program' || path.parentPath.node.type === 'ExportNamedDeclaration') {
             setDisplayNameAfter(path, path.node.id, babel.types, displayName)
           }
         }
       },
       FunctionExpression: function (path, state) {
-        if(shouldSetDisplayNameForFuncExpr(path, state.opts.knownComponents)) {
+        if (shouldSetDisplayNameForFuncExpr(path, state.opts.knownComponents)) {
           var id = findCandidateNameForExpression(path)
           if (id) {
             setDisplayNameAfter(path, id, babel.types)
@@ -41,7 +41,7 @@ function transform (babel) {
         }
       },
       ArrowFunctionExpression: function (path, state) {
-        if(shouldSetDisplayNameForFuncExpr(path, state.opts.knownComponents)) {
+        if (shouldSetDisplayNameForFuncExpr(path, state.opts.knownComponents)) {
           var id = findCandidateNameForExpression(path)
           if (id) {
             setDisplayNameAfter(path, id, babel.types)
@@ -52,32 +52,32 @@ function transform (babel) {
   }
 }
 
-function isKnownComponent(name, knownComponents) {
+function isKnownComponent (name, knownComponents) {
   return (name && knownComponents && knownComponents.indexOf(name) > -1)
 }
 
-function componentNameFromFilename(filename) {
-  var extension = pathMod.extname(filename);
+function componentNameFromFilename (filename) {
+  var extension = pathMod.extname(filename)
   var name = pathMod.basename(filename, extension)
   return name
 }
 
-function shouldSetDisplayNameForFuncExpr(path, knownComponents) {
+function shouldSetDisplayNameForFuncExpr (path, knownComponents) {
   // Parent must be either 'AssignmentExpression' or 'VariableDeclarator' or 'CallExpression' with a parent of 'VariableDeclarator'
   var id
   if (path.parentPath.node.type === 'AssignmentExpression' &&
       path.parentPath.node.left.type !== 'MemberExpression' && // skip static members
-      path.parentPath.parentPath.node.type == 'ExpressionStatement' &&
-      path.parentPath.parentPath.parentPath.node.type == 'Program') {
+      path.parentPath.parentPath.node.type === 'ExpressionStatement' &&
+      path.parentPath.parentPath.parentPath.node.type === 'Program') {
     id = path.parentPath.node.left
-  }else{
+  } else {
     // if parent is a call expression, we have something like (function () { .. })()
     // move up, past the call expression and run the rest of the checks as usual
-    if(path.parentPath.node.type === 'CallExpression') {
+    if (path.parentPath.node.type === 'CallExpression') {
       path = path.parentPath
     }
 
-    if(path.parentPath.node.type === 'VariableDeclarator') {
+    if (path.parentPath.node.type === 'VariableDeclarator') {
       if (path.parentPath.parentPath.parentPath.node.type === 'ExportNamedDeclaration' ||
           path.parentPath.parentPath.parentPath.node.type === 'Program') {
         id = path.parentPath.node.id
@@ -95,13 +95,13 @@ function shouldSetDisplayNameForFuncExpr(path, knownComponents) {
   return false
 }
 
-function classHasRenderMethod(path) {
-  if(!path.node.body) {
+function classHasRenderMethod (path) {
+  if (!path.node.body) {
     return false
   }
   var members = path.node.body.body
-  for(var i = 0; i < members.length; i++) {
-    if (members[i].type == 'ClassMethod' && members[i].key.name == 'render') {
+  for (var i = 0; i < members.length; i++) {
+    if (members[i].type === 'ClassMethod' && members[i].key.name === 'render') {
       return true
     }
   }
@@ -111,23 +111,23 @@ function classHasRenderMethod(path) {
 
 // https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-react-display-name/src/index.js#L62-L77
 // crawl up the ancestry looking for possible candidates for displayName inference
-function findCandidateNameForExpression(path) {
+function findCandidateNameForExpression (path) {
   var id
   path.find(function (path) {
     if (path.isAssignmentExpression()) {
-      id = path.node.left;
+      id = path.node.left
     // } else if (path.isObjectProperty()) {
       // id = path.node.key;
     } else if (path.isVariableDeclarator()) {
-      id = path.node.id;
+      id = path.node.id
     } else if (path.isStatement()) {
       // we've hit a statement, we should stop crawling up
-      return true;
+      return true
     }
 
     // we've got an id! no need to continue
-    if (id) return true;
-  });
+    if (id) return true
+  })
   return id
 }
 
@@ -149,7 +149,7 @@ function doesReturnJSX (body) {
   return false
 }
 
-function setDisplayNameAfter(path, nameNodeId, t, displayName) {
+function setDisplayNameAfter (path, nameNodeId, t, displayName) {
   if (!displayName) {
     displayName = nameNodeId.name
   }
