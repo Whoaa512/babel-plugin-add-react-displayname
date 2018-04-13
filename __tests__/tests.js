@@ -1,36 +1,55 @@
-var babel = require('@babel/core')
-var fs = require('fs')
-var path = require('path')
-var fixturesDir = path.join(__dirname, 'fixtures')
+const pluginTester = require('babel-plugin-tester')
+const babel = require('@babel/core')
+const fs = require('fs')
+const path = require('path')
 
-// var inputFilename = path.join(fixturesDir, "input.js")
-// var expected = readFile(path.join(fixturesDir, "expected.js"))
+const plugin = require('../../babel-plugin-add-react-displayname')
+const pluginPath = path.join(__dirname, '../../babel-plugin-add-react-displayname')
 
-var pluginPath = path.join(__dirname, '../../babel-plugin-add-react-displayname')
-var assert = require('assert')
-describe('add-react-displayname transform', () => {
-  fs.readdirSync(fixturesDir).forEach(function (fixture) {
-    var actual = transformFile(path.join(fixturesDir, fixture, 'input.js'))
-    var expected = readFile((path.join(fixturesDir, fixture, 'expected.js')))
 
-    test('transforms ' + path.basename(fixture), () => {
-      assert.equal(actual, expected)
-    })
-  })
-})
+const fixturesDir = path.join(__dirname, 'fixtures')
 
-function readFile (filename) {
-  var file = fs.readFileSync(filename, 'utf8').trim()
-  file = file.replace(/\r\n/g, '\n')
-  return file
-}
-
-function transformFile (filename) {
-  return babel.transformFileSync(filename, {
+pluginTester({
+  plugin,
+  pluginName: 'add-react-displayname',
+  pluginOptions: {'knownComponents': ['Component5a', 'Component5b', 'Component5c']},
+  snapshot: true,
+  babelOptions: {
     presets: ['@babel/react', '@babel/preset-stage-0'],
-    plugins: [
-      [pluginPath, {'knownComponents': ['Component5a', 'Component5b', 'Component5c']}],
-      '@babel/plugin-proposal-decorators'
-    ]
-  }).code
-}
+    babelrc: false,
+  },
+  tests: {
+    arrowFun: {
+      fixture: path.join(fixturesDir, 'arrowFun', 'code.js'),
+    },
+    classComponents: {
+      fixture: path.join(fixturesDir, 'classComponents', 'code.js'),
+    },
+    createClass: {
+      fixture: path.join(fixturesDir, 'createClass', 'code.js'),
+    },
+    decorators: {
+      babelOptions: {
+        plugins: [
+          '@babel/plugin-proposal-decorators',
+        ],
+      },
+      fixture: path.join(fixturesDir, 'decorators', 'code.js'),
+    },
+    emptyReturn: {
+      fixture: path.join(fixturesDir, 'emptyReturn', 'code.js'),
+    },
+    exportDefaultAnon: {
+      fixture: path.join(fixturesDir, 'exportDefaultAnon', 'code.js'),
+    },
+    functionExpr: {
+      fixture: path.join(fixturesDir, 'functionExpr', 'code.js'),
+    },
+    knownComponents: {
+      fixture: path.join(fixturesDir, 'knownComponents', 'code.js'),
+    },
+    passThrough: {
+      fixture: path.join(fixturesDir, 'passThrough', 'code.js'),
+    },
+  },
+})

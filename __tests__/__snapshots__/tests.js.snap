@@ -1,0 +1,437 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-react-displayname arrowFun: arrowFun 1`] = `
+"
+// Stateless component with an arrow function
+var Component2 = ({value}) => {
+  return (
+    <div>{value}</div>
+  )
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// Stateless component with an arrow function
+var Component2 = ({
+  value
+}) => {
+  return React.createElement(\\"div\\", null, value);
+};
+
+Component2.displayName = \\"Component2\\";
+"
+`;
+
+exports[`add-react-displayname classComponents: classComponents 1`] = `
+"
+import React from 'react'
+import { Component } from 'react'
+
+
+export class Component3a extends React.Component {
+  render() {
+    return <div></div>
+  }
+}
+
+export default class Component3b extends React.Component {
+  render() {
+    return <div></div>
+  }
+}
+
+export class Component3c extends Component {
+  render() {
+    return <div></div>
+  }
+}
+
+class Component3d extends Component {
+  static get = () => {
+    return <div />;
+  }
+  render() {
+    return <div />
+  }
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import { Component } from 'react';
+export class Component3a extends React.Component {
+  render() {
+    return React.createElement(\\"div\\", null);
+  }
+
+}
+Component3a.displayName = \\"Component3a\\";
+export default class Component3b extends React.Component {
+  render() {
+    return React.createElement(\\"div\\", null);
+  }
+
+}
+Component3b.displayName = \\"Component3b\\";
+export class Component3c extends Component {
+  render() {
+    return React.createElement(\\"div\\", null);
+  }
+
+}
+Component3c.displayName = \\"Component3c\\";
+
+class Component3d extends Component {
+  render() {
+    return React.createElement(\\"div\\", null);
+  }
+
+}
+
+Object.defineProperty(Component3d, \\"get\\", {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  value: () => {
+    return React.createElement(\\"div\\", null);
+  }
+});
+Component3d.displayName = \\"Component3d\\";
+"
+`;
+
+exports[`add-react-displayname createClass: createClass 1`] = `
+"
+import React from 'react';
+import { Component } from 'react';
+
+// Babel already sets displayName for this one
+export var Component0 = React.createClass({
+  render: function() {
+    <div></div>
+  }
+})
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import { Component } from 'react'; // Babel already sets displayName for this one
+
+export var Component0 = React.createClass({
+  displayName: \\"Component0\\",
+  render: function () {
+    React.createElement(\\"div\\", null);
+  }
+});
+"
+`;
+
+exports[`add-react-displayname decorators: decorators 1`] = `
+"
+import React from 'react'
+import { Component } from 'react'
+import connect from '../decorators/connect';
+
+
+@connect(Component)
+export default class DecoratedComponent extends React.Component {
+  render() {
+    return <div></div>
+  }
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+var _dec, _class;
+
+import React from 'react';
+import { Component } from 'react';
+import connect from '../decorators/connect';
+let DecoratedComponent = (_dec = connect(Component), _dec(_class = class DecoratedComponent extends React.Component {
+  render() {
+    return React.createElement(\\"div\\", null);
+  }
+
+}) || _class);
+export { DecoratedComponent as default };
+DecoratedComponent.displayName = \\"DecoratedComponent\\";
+"
+`;
+
+exports[`add-react-displayname emptyReturn: emptyReturn 1`] = `
+"
+// Arrow function with empty return
+var emptyReturnFunction = () => {
+  return
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// Arrow function with empty return
+var emptyReturnFunction = () => {
+  return;
+};
+"
+`;
+
+exports[`add-react-displayname exportDefaultAnon: exportDefaultAnon 1`] = `
+"
+// Exported default stateless component used in variable declaration
+export default function ({value}) {
+  return <div>{value}</div>
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// Exported default stateless component used in variable declaration
+export default function _uid({
+  value
+}) {
+  return React.createElement(\\"div\\", null, value);
+}
+_uid.displayName = \\"code\\";
+"
+`;
+
+exports[`add-react-displayname functionExpr: functionExpr 1`] = `
+"
+// Exported stateless componenet
+export function Component1a(value) {
+  return <div>{value}</div>
+}
+
+// Stateless componenet
+function Component1b(value) {
+  return <div>{value}</div>
+}
+
+// Stateless componenet used in a variable declaration
+var Component1c = function (value) {
+  return <div>{value}</div>
+}
+
+// Exported named stateless component used in variable declaration
+export var Component1d = function (value) {
+  return <div>{value}</div>
+}
+
+// Stateless componenet used in an assignment
+var Component1e;
+Component1e = function (value) {
+  return <div>{value}</div>
+}
+
+// Exported default stateless *named* component used in variable declaration
+export default function Component1f (value) {
+  return <div>{value}</div>
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// Exported stateless componenet
+export function Component1a(value) {
+  return React.createElement(\\"div\\", null, value);
+}
+Component1a.displayName = \\"Component1a\\";
+
+// Stateless componenet
+function Component1b(value) {
+  return React.createElement(\\"div\\", null, value);
+}
+
+Component1b.displayName = \\"Component1b\\";
+
+// Stateless componenet used in a variable declaration
+var Component1c = function (value) {
+  return React.createElement(\\"div\\", null, value);
+};
+
+Component1c.displayName = \\"Component1c\\";
+// Exported named stateless component used in variable declaration
+export var Component1d = function (value) {
+  return React.createElement(\\"div\\", null, value);
+};
+Component1d.displayName = \\"Component1d\\";
+// Stateless componenet used in an assignment
+var Component1e;
+
+Component1e = function (value) {
+  return React.createElement(\\"div\\", null, value);
+};
+
+Component1e.displayName = \\"Component1e\\";
+// Exported default stateless *named* component used in variable declaration
+export default function Component1f(value) {
+  return React.createElement(\\"div\\", null, value);
+}
+Component1f.displayName = \\"Component1f\\";
+"
+`;
+
+exports[`add-react-displayname knownComponents: knownComponents 1`] = `
+"
+// Specifically configured to set name on Component5a and Component5b
+function Component5a() {
+  return \\"some string\\"
+}
+
+var Component5b = function () {
+  return \\"some string\\"
+}
+
+// Known component's name used inside another function
+var Component5c = function () {
+  function Component5c() {}
+  return Component5c
+}()
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// Specifically configured to set name on Component5a and Component5b
+function Component5a() {
+  return \\"some string\\";
+}
+
+Component5a.displayName = \\"Component5a\\";
+
+var Component5b = function () {
+  return \\"some string\\";
+};
+
+Component5b.displayName = \\"Component5b\\";
+
+// Known component's name used inside another function
+var Component5c = function () {
+  function Component5c() {}
+
+  return Component5c;
+}();
+
+Component5c.displayName = \\"Component5c\\";
+"
+`;
+
+exports[`add-react-displayname passThrough: passThrough 1`] = `
+"
+// ---------------------
+// Should pass through unaltered
+// ---------------------
+var f1 = function({value}) {
+  return \\"somestring\\"
+}
+
+function f2({value}) {
+  return \\"somestring\\"
+}
+
+class f3 {
+  method1() {
+    return \\"whatever\\"
+  }
+}
+
+var f4 = (
+  <div>
+    {(() => <span></span>)()}
+  </div>
+)
+
+// Known component which doesn't sit directly on the \`Program\` node get left alone
+{
+  var Component5c = function () {
+    function Component5c () {}
+    return Component5c
+  }()
+}
+
+// ---------------------
+// Not supported
+// ---------------------
+
+// High-order things will be hard to catch
+var jsxChunk = <div>{value}</div>
+function UnsupportedComponent1({value}) {
+  return function() {
+    return jsxChunk
+  }
+}
+
+var a = {
+  smoke: function() {},
+  Component1d: function ({value}) {
+    return <div>{value}</div>
+  }
+}
+
+var external = function() {
+  var internal = function() {
+    return <div />
+  }
+  return internal
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// ---------------------
+// Should pass through unaltered
+// ---------------------
+var f1 = function ({
+  value
+}) {
+  return \\"somestring\\";
+};
+
+function f2({
+  value
+}) {
+  return \\"somestring\\";
+}
+
+class f3 {
+  method1() {
+    return \\"whatever\\";
+  }
+
+}
+
+var f4 = React.createElement(\\"div\\", null, (() => React.createElement(\\"span\\", null))()); // Known component which doesn't sit directly on the \`Program\` node get left alone
+
+{
+  var Component5c = function () {
+    function Component5c() {}
+
+    return Component5c;
+  }();
+} // ---------------------
+// Not supported
+// ---------------------
+// High-order things will be hard to catch
+
+var jsxChunk = React.createElement(\\"div\\", null, value);
+
+function UnsupportedComponent1({
+  value
+}) {
+  return function () {
+    return jsxChunk;
+  };
+}
+
+var a = {
+  smoke: function () {},
+  Component1d: function ({
+    value
+  }) {
+    return React.createElement(\\"div\\", null, value);
+  }
+};
+
+var external = function () {
+  var internal = function () {
+    return React.createElement(\\"div\\", null);
+  };
+
+  return internal;
+};
+"
+`;
