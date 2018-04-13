@@ -27,6 +27,9 @@
     "url": "git+https://github.com/opbeat/babel-plugin-react-displayname.git"
   },
   "author": "Ron Cohen",
+  "contributors": [
+    "C.J. Winslow <whoaa512@gmail.com> (https://github.com/whoaa512)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/opbeat/babel-plugin-react-displayname/issues"
