@@ -8,12 +8,12 @@ var fixturesDir = path.join(__dirname, 'fixtures')
 
 var pluginPath = path.join(__dirname, '../../babel-plugin-add-react-displayname')
 var assert = require('assert')
-describe('add-react-displayname transform', function () {
+describe('add-react-displayname transform', () => {
   fs.readdirSync(fixturesDir).forEach(function (fixture) {
     var actual = transformFile(path.join(fixturesDir, fixture, 'input.js'))
     var expected = readFile((path.join(fixturesDir, fixture, 'expected.js')))
 
-    it('transforms ' + path.basename(fixture), function () {
+    test('transforms ' + path.basename(fixture), () => {
       assert.equal(actual, expected)
     })
   })

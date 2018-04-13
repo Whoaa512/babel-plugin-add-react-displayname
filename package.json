@@ -17,7 +17,7 @@
     "test": "jest"
   },
   "jest": {
-    "testMatch": ["test/tests.js"]
+    "testPathIgnorePatterns": ["<rootDir>/__tests__/fixtures/", "<rootDir>/node_modules/"]
   },
   "repository": {
     "type": "git",
