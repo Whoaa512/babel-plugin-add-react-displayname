@@ -15,7 +15,7 @@ pluginTester({
   pluginOptions: {'knownComponents': ['Component5a', 'Component5b', 'Component5c']},
   snapshot: true,
   babelOptions: {
-    presets: ['@babel/react', '@babel/preset-stage-0'],
+    presets: ['@babel/preset-react', '@babel/preset-stage-0'],
     babelrc: false,
   },
   tests: {
